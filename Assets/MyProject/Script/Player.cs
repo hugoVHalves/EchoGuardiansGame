@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     private bool canWalk = true;
-    private bool isFlying = false;
+    [SerializeField] private bool isFlying = false;
 
     void Start()
     {
@@ -33,6 +33,11 @@ public class Player : MonoBehaviour
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;  // Resetar a velocidade ao tocar o chão
+        }
+
+        if (isGrounded && isFlying)
+        {
+            isFlying = false;
         }
 
         // Alternar entre andar e voar ao pressionar "C"
@@ -109,7 +114,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            velocity.y = 0;  // Manter a altura
+            velocity.y += gravity * Time.deltaTime;  // Aplicar gravidade no voo
         }
     }
 

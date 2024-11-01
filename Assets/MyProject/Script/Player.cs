@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private bool isGrounded;
     private bool canWalk = true;
     [SerializeField] private bool isFlying = false;
+    [SerializeField] int seeds;
 
     void Start()
     {
@@ -114,6 +115,11 @@ public class Player : MonoBehaviour
         }
         else
         {
+            if (seeds >= 1)
+            {
+                velocity.y += gravity * (seeds / 4 ) * Time.deltaTime;
+            }
+
             velocity.y += gravity * Time.deltaTime;  // Aplicar gravidade no voo
         }
     }

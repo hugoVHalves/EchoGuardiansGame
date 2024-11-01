@@ -702,6 +702,7 @@ MonoBehaviour:
   flightHeightSpeed: 3
   playerAnimalArara: 1
   isFlying: 0
+  seeds: 5
 --- !u!136 &1346859290
 CapsuleCollider:
   m_ObjectHideFlags: 0

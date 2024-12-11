@@ -15,10 +15,12 @@ public class Player : MonoBehaviour
 
     [SerializeField] public bool playerAnimalArara;
 
+    [SerializeField] private Transform cameraTransform;
     private Vector3 velocity;
     private bool isGrounded;
     private bool canWalk = true;
-    private bool isFlying = false;
+    [SerializeField] private bool isFlying = false;
+    [SerializeField] int seeds;
 
     void Start()
     {
@@ -33,6 +35,11 @@ public class Player : MonoBehaviour
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;  // Resetar a velocidade ao tocar o chão
+        }
+
+        if (isGrounded && isFlying)
+        {
+            isFlying = false;
         }
 
         // Alternar entre andar e voar ao pressionar "C"
@@ -76,6 +83,8 @@ public class Player : MonoBehaviour
             float moveZ = Input.GetAxis("Vertical");
 
             Vector3 move = transform.right * moveX + transform.forward * moveZ;
+
+            move = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * move;
             controller.Move(move * walkSpeed * Time.deltaTime);
 
             // Pular
@@ -96,6 +105,8 @@ public class Player : MonoBehaviour
         float moveZ = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
+
+        move = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * move;
         controller.Move(move * flightSpeed * Time.deltaTime);
 
         // Controle da altura no voo
@@ -109,8 +120,25 @@ public class Player : MonoBehaviour
         }
         else
         {
-            velocity.y = 0;  // Manter a altura
+            if (seeds >= 1)
+            {
+                velocity.y += gravity * (seeds / 4) * Time.deltaTime;
+            }
+
+            velocity.y += gravity * Time.deltaTime;  // Aplicar gravidade no voo
         }
     }
 
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
 }

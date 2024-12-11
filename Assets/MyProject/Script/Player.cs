@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] public bool playerAnimalArara;
 
+    [SerializeField] private Transform cameraTransform;
     private Vector3 velocity;
     private bool isGrounded;
     private bool canWalk = true;
@@ -82,6 +83,8 @@ public class Player : MonoBehaviour
             float moveZ = Input.GetAxis("Vertical");
 
             Vector3 move = transform.right * moveX + transform.forward * moveZ;
+
+            move = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * move;
             controller.Move(move * walkSpeed * Time.deltaTime);
 
             // Pular
@@ -102,6 +105,8 @@ public class Player : MonoBehaviour
         float moveZ = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
+
+        move = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * move;
         controller.Move(move * flightSpeed * Time.deltaTime);
 
         // Controle da altura no voo
@@ -124,4 +129,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
 }

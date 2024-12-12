@@ -13,13 +13,12 @@ public class Uimanager : MonoBehaviour
 
     private void Start()
     {
-        SceneManager.LoadScene(0);
+        DontDestroyOnLoad(gameObject);
         painelMenuinicial.SetActive(true);
     }
 
     public void Jogar()
     {
-        
         SceneManager.LoadScene(1);
         GameplayArara.SetActive(true);
         painelMenuinicial.SetActive(false);
@@ -30,16 +29,5 @@ public class Uimanager : MonoBehaviour
     {
         Debug.Log("Sair do Jogo");
         Application.Quit();
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-
-            painelConfig.SetActive(!painelConfig.activeInHierarchy);
-            gamePaused = painelConfig.activeInHierarchy;
-            GameplayArara.SetActive(false);
-
-        }
     }
 }

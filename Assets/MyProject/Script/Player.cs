@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        SceneManager.LoadScene(0);
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
     }

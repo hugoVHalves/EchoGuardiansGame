@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject painelConfig;
-    private bool gamePaused;
+    //[SerializeField] GameObject painelConfig;
+    //private bool gamePaused;
 
-    public static GameManager instance;
-    void Update()
+    //public static GameManager instance;
+
+    //private void Start()
+   // {
+     //   instance = this;
+        //Time.timeScale = 1f;
+    //}
+    /*void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -16,6 +22,6 @@ public class GameManager : MonoBehaviour
             painelConfig.SetActive(!painelConfig.activeInHierarchy);
             gamePaused = painelConfig.activeInHierarchy;
         }
-    }
+    }*/
 
 }

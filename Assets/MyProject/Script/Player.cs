@@ -22,12 +22,17 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isFlying = false;
     [SerializeField] int seeds;
 
+    private Animator animator;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
 
+        animator = GetComponent<Animator>();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
     }
 
     void Update()

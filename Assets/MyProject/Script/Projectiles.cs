@@ -73,14 +73,14 @@ public class Projectiles : MonoBehaviour
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //raio até o meio da tela
         RaycastHit hit;
 
-        Vector3 targetPoint = ray.GetPoint(5f);
+        Vector3 targetPoint;
         if (Physics.Raycast(ray, out hit))
             targetPoint = hit.point;
         else
             targetPoint = ray.GetPoint(75); //um ponto longe do jogador
 
         //Calcular direção do ponto de ataque ate o alvo do ataque
-        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+        Vector3 directionWithoutSpread = attackPoint.position - targetPoint;
 
         //Calcular spread
         float x = Random.Range(-spread, spread);
@@ -111,7 +111,7 @@ public class Projectiles : MonoBehaviour
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
 
-            playerRB.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
+            //playerRB.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
         }
     }
 

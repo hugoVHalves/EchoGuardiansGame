@@ -39,16 +39,18 @@ public class ProjectilesCustom : MonoBehaviour
     private void Explode()
     {
         //instantiate
-        if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
+        //if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
 
         //verifica os inimigos
-        Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, enemiesD);
+        /*Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, enemiesD);
         for (int i = 0; i < enemies.Length; i++)
         {
             //chamar o componente do inimigo e invocar takeDamage
 
             Invoke("Delay", 1f);
-        }
+        }*/
+
+        Invoke("Delay", 1f);
     }
 
     private void Delay()

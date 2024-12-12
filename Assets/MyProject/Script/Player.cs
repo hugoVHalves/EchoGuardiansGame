@@ -21,10 +21,14 @@ public class Player : MonoBehaviour
     private bool canWalk = true;
     [SerializeField] private bool isFlying = false;
     [SerializeField] int seeds;
+    private Animator animator;
+
+    [SerializeField] private int rotSpeed;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -54,6 +58,7 @@ public class Player : MonoBehaviour
             isFlying = !isFlying;
             if (isFlying)
             {
+                animator.SetBool("Voando", true);
                 velocity.y = 0;  // Resetar a velocidade vertical ao começar a voar
             }
         }
@@ -63,6 +68,7 @@ public class Player : MonoBehaviour
         {
             // Movimentação no chão
             MoveOnGround();
+            animator.SetBool("Voando", false);
         }
         else
         {
@@ -72,6 +78,9 @@ public class Player : MonoBehaviour
 
         // Aplicar a movimentação no Character Controller
         controller.Move(velocity * Time.deltaTime);
+       
+        
+          
     }
 
     void MoveOnGround()
@@ -84,7 +93,12 @@ public class Player : MonoBehaviour
 
             Vector3 move = transform.right * moveX + transform.forward * moveZ;
 
-            move = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * move;
+            float rotY = Input.GetAxisRaw("Mouse X") * rotSpeed * Time.deltaTime;
+            transform.Rotate(0, rotY, 0);
+
+            //Vector3 move = cameraTransform.right * moveX + cameraTransform.forward * moveZ;
+
+            //move = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * move;
             controller.Move(move * walkSpeed * Time.deltaTime);
 
             // Pular
@@ -95,6 +109,7 @@ public class Player : MonoBehaviour
 
             // Aplicar gravidade no chão
             velocity.y += gravity * Time.deltaTime;
+
         }
     }
 
@@ -106,7 +121,10 @@ public class Player : MonoBehaviour
 
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
 
-        move = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * move;
+        float rotY = Input.GetAxisRaw("Mouse X") * rotSpeed * Time.deltaTime;
+        transform.Rotate(0, rotY, 0);
+
+        //move = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * move;
         controller.Move(move * flightSpeed * Time.deltaTime);
 
         // Controle da altura no voo

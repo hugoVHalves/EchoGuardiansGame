@@ -25,6 +25,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -126,19 +129,6 @@ public class Player : MonoBehaviour
             }
 
             velocity.y += gravity * Time.deltaTime;  // Aplicar gravidade no voo
-        }
-    }
-
-    private void OnApplicationFocus(bool focus)
-    {
-        if (focus)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
         }
     }
 }

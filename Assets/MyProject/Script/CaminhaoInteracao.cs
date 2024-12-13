@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CaminhaoInteracao : MonoBehaviour, IInteractable {
 
-    public bool alreadyInteracted;
+    public bool alreadyInteracted = true;
     public int objetivo = 5;
 
     public string GetDescription()

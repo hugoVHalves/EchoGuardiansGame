@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 
@@ -20,10 +21,16 @@ public class Player : MonoBehaviour
     private bool isGrounded;
     private bool canWalk = true;
     [SerializeField] private bool isFlying = false;
-    [SerializeField] int seeds;
+    [SerializeField] public int seeds;
     private Animator animator;
 
     [SerializeField] private int rotSpeed;
+
+    public Camera cameraP;
+    [SerializeField] public float interactionDistance;
+
+    public GameObject interactionUI;
+    public TextMeshProUGUI interactionText;
 
     void Start()
     {
@@ -78,8 +85,8 @@ public class Player : MonoBehaviour
 
         // Aplicar a movimentação no Character Controller
         controller.Move(velocity * Time.deltaTime);
-       
-        
+
+        InteractionRay();
           
     }
 
@@ -140,11 +147,35 @@ public class Player : MonoBehaviour
         {
             if (seeds >= 1)
             {
-                velocity.y += gravity * (seeds / 4) * Time.deltaTime;
+                velocity.y += gravity * (seeds / 4) * Time.deltaTime; //fica mais pesado se estiver carregando sementes
             }
 
             velocity.y += gravity * Time.deltaTime;  // Aplicar gravidade no voo
         }
+    }
+
+    void InteractionRay()
+    {
+        Ray ray = new Ray(transform.position, transform.forward); //deveria ser o vetor ate o objeto desejado
+        RaycastHit hit;
+
+        bool hitSomething = false;
+
+        if (Physics.Raycast(ray, out hit, interactionDistance)) {
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+
+            if (interactable != null) {
+                hitSomething = true;
+                //interactionText.text = interactable.GetDescription(); O TEXTO É AQUI VICTOR
+
+                if (Input.GetKeyDown(KeyCode.I))
+                {
+                    interactable.Interact();
+                }
+            }
+        }
+
+        //interactionUI.SetActive(hitSomething);
     }
 
     private void OnApplicationFocus(bool focus)

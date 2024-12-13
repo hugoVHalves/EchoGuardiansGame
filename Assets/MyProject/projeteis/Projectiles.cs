@@ -77,17 +77,17 @@ public class Projectiles : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
             targetPoint = hit.point;
         //else
-            targetPoint = ray.GetPoint(0); //o ponto exato (n espalha o projetil)
+            targetPoint = ray.GetPoint(0); //o ponto exato (n espalha o projetil se 0)
 
         //Calcular direção do ponto de ataque ate o alvo do ataque
         Vector3 directionWithoutSpread = attackPoint.position - targetPoint;
 
-        //Calcular spread
+        //Spread
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
         float z = Random.Range(-spread, spread);
 
-        //Calcular new direction with spread
+        //Calcular nova direcao com spread
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, z);
 
 

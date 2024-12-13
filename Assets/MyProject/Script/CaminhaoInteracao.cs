@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class CaminhaoInteracao : MonoBehaviour, IInteractable {
 
-    public bool alreadyInteracted = true;
+    public bool alreadyInteracted = false;
     public int objetivo = 5;
 
     public string GetDescription()
     {
-        if (alreadyInteracted)
+        if (alreadyInteracted == true)
         {
             return "Já interagiu!";
         }
@@ -19,11 +19,13 @@ public class CaminhaoInteracao : MonoBehaviour, IInteractable {
 
     public void Interact()
     {
-        if (alreadyInteracted)
+        if (alreadyInteracted == true) return;
+        else
         {
-            objetivo--;
+            ObjManager.instance.Sabote();
+            objetivo = ObjManager.instance.objective;
             Debug.Log("Restam" + objetivo + "caminhões para sabotar");
+            alreadyInteracted = true;
         }
-        else return;
     }
 }

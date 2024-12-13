@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 public class Player : MonoBehaviour
 
 {
@@ -26,6 +27,12 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource somAmbiente;
 
     [SerializeField] private int rotSpeed;
+
+    public Camera cameraP;
+    [SerializeField] public float interactionDistance;
+
+    public GameObject interactionUI;
+    public TextMeshProUGUI interactionText;
 
     void Start()
     {
@@ -81,9 +88,9 @@ public class Player : MonoBehaviour
 
         // Aplicar a movimentação no Character Controller
         controller.Move(velocity * Time.deltaTime);
-       
-        
-          
+
+        InteractionRay();
+
     }
 
     void MoveOnGround()
@@ -148,6 +155,32 @@ public class Player : MonoBehaviour
 
             velocity.y += gravity * Time.deltaTime;  // Aplicar gravidade no voo
         }
+    }
+
+    void InteractionRay()
+    {
+        Ray ray = new Ray(transform.position, transform.forward); //deveria ser o vetor ate o objeto desejado
+        RaycastHit hit;
+
+        bool hitSomething = false;
+
+        if (Physics.Raycast(ray, out hit, interactionDistance))
+        {
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+
+            if (interactable != null)
+            {
+                hitSomething = true;
+                //interactionText.text = interactable.GetDescription(); O TEXTO É AQUI VICTOR
+
+                if (Input.GetKeyDown(KeyCode.I))
+                {
+                    interactable.Interact();
+                }
+            }
+        }
+
+        //interactionUI.SetActive(hitSomething);
     }
 
     private void OnApplicationFocus(bool focus)

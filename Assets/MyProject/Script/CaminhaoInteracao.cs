@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CaminhaoInteracao : MonoBehaviour, IInteractable {
-
+    [SerializeField] GameObject particula;
     public bool alreadyInteracted = false;
     public int objetivo = 5;
 
@@ -24,8 +24,9 @@ public class CaminhaoInteracao : MonoBehaviour, IInteractable {
         {
             ObjManager.instance.Sabote();
             objetivo = ObjManager.instance.objective;
-            Debug.Log("Restam" + objetivo + "caminhões para sabotar");
+            Debug.Log("Restam " + objetivo + " caminhões para sabotar");
             alreadyInteracted = true;
+            particula.SetActive(true);
         }
     }
 }

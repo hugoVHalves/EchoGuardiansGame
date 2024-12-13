@@ -5,23 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class Uimanager : MonoBehaviour
 {
-   
+    
+    public static Uimanager Instance;
     [SerializeField]private GameObject painelMenuinicial;
     [SerializeField] GameObject painelConfig;
     private bool gamePaused;
     [SerializeField] private GameObject GameplayArara;
-
+    
     
     [SerializeField] private AudioSource button;
     [SerializeField] private AudioSource vitoria;
     [SerializeField] private AudioSource derrota;
     [SerializeField] private AudioSource SomMenu;
 
+    private void Awake()
+    {
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
     private void Start()
     {
+        
         DontDestroyOnLoad(gameObject);
         painelMenuinicial.SetActive(true);
     }
+   
 
     public void Jogar()
     {
@@ -40,4 +48,7 @@ public class Uimanager : MonoBehaviour
         Application.Quit();
         button.Play();
     }
+   
+
+   
 }

@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward); //deveria ser o vetor ate o objeto desejado
         RaycastHit hit;
 
-        bool hitSomething = false;
+        //bool hitSomething = false;
 
         if (Physics.Raycast(ray, out hit, interactionDistance))
         {
@@ -170,7 +170,7 @@ public class Player : MonoBehaviour
 
             if (interactable != null)
             {
-                hitSomething = true;
+                //hitSomething = true;
                 //interactionText.text = interactable.GetDescription(); O TEXTO É AQUI VICTOR
 
                 if (Input.GetKeyDown(KeyCode.I))

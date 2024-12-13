@@ -7,6 +7,7 @@ public class ObjManager : MonoBehaviour
     public static ObjManager instance;
 
     public int objective = 5;
+    public bool ganhou = false; 
 
     private void Awake()
     {
@@ -14,7 +15,21 @@ public class ObjManager : MonoBehaviour
     }
 
     public void Sabote()
+    {      
+        objective -= 1;      
+    }
+    private void Update()
     {
-        objective -= 1;
+        End();
+
+    }
+    private void End()
+    {
+        if (ganhou == false && objective == 0)
+        {
+            WinScreenManager.Instance.TelaDeVitoria();
+            ganhou = true;
+        }
+
     }
 }

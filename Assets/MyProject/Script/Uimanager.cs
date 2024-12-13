@@ -11,6 +11,12 @@ public class Uimanager : MonoBehaviour
     private bool gamePaused;
     [SerializeField] private GameObject GameplayArara;
 
+    
+    [SerializeField] private AudioSource button;
+    [SerializeField] private AudioSource vitoria;
+    [SerializeField] private AudioSource derrota;
+    [SerializeField] private AudioSource SomMenu;
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -22,6 +28,9 @@ public class Uimanager : MonoBehaviour
         SceneManager.LoadScene(1);
         GameplayArara.SetActive(true);
         painelMenuinicial.SetActive(false);
+        SomMenu.Stop();
+        button.Play();
+        
 
     }
     
@@ -29,5 +38,6 @@ public class Uimanager : MonoBehaviour
     {
         Debug.Log("Sair do Jogo");
         Application.Quit();
+        button.Play();
     }
 }

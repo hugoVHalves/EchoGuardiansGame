@@ -31,6 +31,7 @@ public class Projectiles : MonoBehaviour
     //evitar bug
 
     public bool allowInvoke = true;
+    [SerializeField] AudioSource bulletSound;
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class Projectiles : MonoBehaviour
     private void PrInput()
     {
         if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
+       
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         //Recarregando
@@ -62,6 +64,7 @@ public class Projectiles : MonoBehaviour
             projectilesShot = 0;
 
             Shoot();
+            bulletSound.Play();
         }
     }
 

@@ -23,10 +23,13 @@ public class Player : MonoBehaviour
     [SerializeField] int seeds;
     private Animator animator;
 
+    [SerializeField] private AudioSource somAmbiente;
+
     [SerializeField] private int rotSpeed;
 
     void Start()
     {
+        somAmbiente.Play();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
     }

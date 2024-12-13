@@ -5,24 +5,25 @@ using UnityEngine;
 
 public class CaminhaoInteracao : MonoBehaviour, IInteractable {
 
+    public bool alreadyInteracted;
+    public int objetivo;
+
     public string GetDescription()
     {
-        return "Change to a random colour";
+        if (alreadyInteracted)
+        {
+            return "Já interagiu!";
+        }
+        return "Sabote esse veículo";
     }
 
     public void Interact()
     {
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (alreadyInteracted)
+        {
+            objetivo--;
+            Debug.Log("Restam" + objetivo + "caminhões para sabotar");
+        }
+        else return;
     }
 }
